@@ -45,7 +45,7 @@ export function StaffDashboard() {
   });
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6  w-screen">
       <div className="flex gap-4 items-center">
         <Select
           value={selectedBatch}

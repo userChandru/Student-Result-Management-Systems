@@ -1,21 +1,16 @@
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { ThemeProvider } from './context/ThemeContext';
 import { AuthProvider } from './context/AuthContext';
-import { Routes } from './Routes';
+import { ThemeProvider } from './context/ThemeContext';
+import { AppRoutes } from './Routes';
 import { Toaster } from 'react-hot-toast';
-
-const queryClient = new QueryClient();
 
 function App() {
   return (
-    <QueryClientProvider client={queryClient}>
+    <AuthProvider>
       <ThemeProvider>
-        <AuthProvider>
-          <Routes />
-          <Toaster position="top-right" />
-        </AuthProvider>
+        <AppRoutes />
+        <Toaster position="top-right" />
       </ThemeProvider>
-    </QueryClientProvider>
+    </AuthProvider>
   );
 }
 

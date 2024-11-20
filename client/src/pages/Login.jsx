@@ -13,104 +13,139 @@ export function Login() {
   const navigate = useNavigate();
   const { login } = useAuth();
   const [loading, setLoading] = useState(false);
-  const [formData, setFormData] = useState({
-    username: '',
-    password: '',
-    role: 'student'
-  });
-
+  
   const roleOptions = [
     { value: 'student', label: 'Student' },
     { value: 'staff', label: 'Staff' },
     { value: 'parent', label: 'Parent' }
   ];
 
+  const [formData, setFormData] = useState({
+    username: '',
+    password: '',
+    role: 'student'
+  });
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    console.log(formData);
-    
     try {
-      const { data } = await api.post('/auth/login', formData);
-      login(data.token);
-      navigate('/');
-      toast.success('Login successful');
+      const response = await api.post('/auth/login', formData);
+      if (response.data.token) {
+        await login(response.data.token);
+        
+        switch (formData.role) {
+          case 'student':
+            navigate('/student');
+            break;
+          case 'staff':
+            navigate('/staff');
+            break;
+          default:
+            navigate('/dashboard');
+        }
+        
+        toast.success('Login successful!');
+      }
     } catch (error) {
+      console.error('Login error:', error);
       toast.error(error.response?.data?.message || 'Login failed');
     } finally {
       setLoading(false);
     }
   };
 
+  const handleChange = (e) => {
+    setFormData(prev => ({
+      ...prev,
+      [e.target.name]: e.target.value
+    }));
+  };
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-50">
-      <div className="w-full max-w-4xl grid grid-cols-1 md:grid-cols-2 gap-8 p-4">
-        <div className="hidden md:flex flex-col justify-center space-y-4">
-          <h1 className="text-4xl font-bold text-indigo-900">
-            Student Result Management
-          </h1>
-          <p className="text-gray-600">
-            Access your academic performance, track your progress, and manage your results all in one place.
-          </p>
-          <div className="bg-white/30 backdrop-blur-sm rounded-lg p-6 space-y-3">
-            <div className="flex items-center gap-3 text-indigo-900">
-              <UserCircle className="w-5 h-5" />
-              <span>Easy access to semester results</span>
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-50 w-screen h-screen">
+      <div className="w-full max-w-6xl grid grid-cols-1 md:grid-cols-2 gap-12 p-8">
+        <div className="hidden md:flex flex-col justify-center space-y-6">
+          <div className="space-y-4">
+            <h1 className="text-5xl font-bold bg-gradient-to-r from-indigo-900 to-blue-700 bg-clip-text text-transparent">
+              Student Result Management
+            </h1>
+            <p className="text-lg text-gray-600">
+              Access your academic performance, track your progress, and manage your results all in one place.
+            </p>
+          </div>
+          
+          <div className="bg-white/40 backdrop-blur-sm rounded-xl p-8 space-y-4 shadow-lg border border-white/50">
+            <div className="flex items-center gap-4 text-indigo-900">
+              <UserCircle className="w-6 h-6 text-indigo-600" />
+              <span className="text-lg">Easy access to semester results</span>
             </div>
-            <div className="flex items-center gap-3 text-indigo-900">
-              <UserCircle className="w-5 h-5" />
-              <span>Track academic progress</span>
+            <div className="flex items-center gap-4 text-indigo-900">
+              <UserCircle className="w-6 h-6 text-indigo-600" />
+              <span className="text-lg">Track academic progress</span>
             </div>
-            <div className="flex items-center gap-3 text-indigo-900">
-              <UserCircle className="w-5 h-5" />
-              <span>Performance analytics</span>
+            <div className="flex items-center gap-4 text-indigo-900">
+              <UserCircle className="w-6 h-6 text-indigo-600" />
+              <span className="text-lg">Performance analytics</span>
             </div>
+          </div>
+
+          <div className="bg-gradient-to-r from-indigo-600/10 to-blue-600/10 p-6 rounded-lg">
+            <p className="text-indigo-900 font-medium">
+              "Education is the passport to the future, for tomorrow belongs to those who prepare for it today."
+            </p>
+            <p className="text-indigo-600 mt-2">- Malcolm X</p>
           </div>
         </div>
 
-        <Card className="p-8 shadow-xl bg-white/80 backdrop-blur-sm">
-          <div className="text-center mb-8">
-            <h2 className="text-2xl font-bold text-gray-900">Welcome Back</h2>
-            <p className="text-gray-600 mt-2">Please sign in to continue</p>
+        <Card className="p-10 shadow-2xl bg-white/90 backdrop-blur-sm border border-white/50">
+          <div className="text-center mb-10">
+            <h2 className="text-3xl font-bold bg-gradient-to-r from-indigo-700 to-blue-600 bg-clip-text text-transparent">
+              Welcome Back
+            </h2>
+            <p className="text-gray-600 mt-3 text-lg">Please sign in to continue</p>
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <form onSubmit={handleSubmit} className="space-y-8">
             <Select
+              name="role"
               value={formData.role}
-              onChange={(e) => setFormData(prev => ({ ...prev, role: e.target.value }))}
+              onChange={handleChange}
               options={roleOptions}
+              icon={<UserCircle className="w-5 h-5 text-indigo-500" />}
               label="Login as"
-              icon={<User className="w-5 h-5 text-gray-500" />}
-              className="bg-white"
+              className="bg-white/80 border-indigo-100 focus:border-indigo-300"
             />
             
             <div className="relative">
-              <User className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500" />
+              <User className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-indigo-500" />
               <Input
+                name="username"
                 type="text"
                 placeholder="Username"
                 value={formData.username}
-                onChange={(e) => setFormData(prev => ({ ...prev, username: e.target.value }))}
+                onChange={handleChange}
                 required
-                className="pl-10 bg-white"
+                className="pl-12 bg-white/80 border-indigo-100 focus:border-indigo-300"
               />
             </div>
 
             <div className="relative">
-              <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500" />
+              <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-indigo-500" />
               <Input
+                name="password"
                 type="password"
                 placeholder="Password"
                 value={formData.password}
-                onChange={(e) => setFormData(prev => ({ ...prev, password: e.target.value }))}
+                onChange={handleChange}
                 required
-                className="pl-10 bg-white"
+                className="pl-12 bg-white/80 border-indigo-100 focus:border-indigo-300"
               />
             </div>
 
             <Button 
               type="submit" 
-              className="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-2.5"
+              className="w-full bg-gradient-to-r from-indigo-600 to-blue-600 hover:from-indigo-700 hover:to-blue-700 text-white py-3 text-lg font-medium rounded-lg shadow-lg hover:shadow-xl transition-all duration-200"
               disabled={loading}
             >
               {loading ? 'Signing in...' : 'Sign In'}

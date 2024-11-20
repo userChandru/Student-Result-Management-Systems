@@ -4,7 +4,8 @@ const api = axios.create({
   baseURL: 'http://localhost:5000/api',
   headers: {
     'Content-Type': 'application/json'
-  }
+  },
+  withCredentials: true
 });
 
 api.interceptors.request.use((config) => {
@@ -15,25 +16,37 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
-// Add response interceptor for development
 api.interceptors.response.use(
   response => response,
   error => {
-    // If API is not available, return mock data
-    if (!error.response) {
-      if (error.config.url.includes('/auth/login')) {
-        return Promise.resolve({
-          data: {
-            token: 'mock_token_for_development',
-            user: {
-              id: 1,
-              name: 'Test User',
-              role: 'student'
-            }
-          }
-        });
-      }
+    if (error.response?.status === 401) {
+      localStorage.removeItem('token');
+      window.location.href = '/login';
     }
+    return Promise.reject(error);
+  }
+);
+
+// Add request interceptor for debugging
+api.interceptors.request.use(
+  config => {
+    console.log('Request:', config);
+    return config;
+  },
+  error => {
+    console.error('Request Error:', error);
+    return Promise.reject(error);
+  }
+);
+
+// Add response interceptor for debugging
+api.interceptors.response.use(
+  response => {
+    console.log('Response:', response);
+    return response;
+  },
+  error => {
+    console.error('Response Error:', error);
     return Promise.reject(error);
   }
 );

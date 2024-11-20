@@ -1,76 +1,120 @@
-import { PieChart, Pie, Cell, Legend, ResponsiveContainer } from 'recharts';
-import { Progress } from './ui/Progress';
+import { Card } from './ui/Card';
+import { Select } from './ui/Select';
+import { useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import { BarChart, Bar, PieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip } from 'recharts';
 
-export function BatchAnalytics({ data }) {
-  if (!data) return null;
+export function BatchAnalytics() {
+  const [selectedBatch, setSelectedBatch] = useState('2024');
+  const [selectedDepartment, setSelectedDepartment] = useState('CSE');
 
-  const COLORS = ['#4F46E5', '#10B981', '#F59E0B'];
-
-  const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent }) => {
-    const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
-    const x = cx + radius * Math.cos(-midAngle * Math.PI / 180);
-    const y = cy + radius * Math.sin(-midAngle * Math.PI / 180);
-
-    return (
-      <text x={x} y={y} fill="white" textAnchor="middle" dominantBaseline="central">
-        {`${(percent * 100).toFixed(0)}%`}
-      </text>
-    );
-  };
+  const { data: batchData } = useQuery({
+    queryKey: ['batch-analytics', selectedBatch, selectedDepartment],
+    queryFn: async () => {
+      // Mock data - replace with actual API call
+      return {
+        passFailRate: [
+          { name: 'Pass', value: 85, color: '#4ade80' },
+          { name: 'Fail', value: 15, color: '#f87171' }
+        ],
+        subjectWiseAnalysis: [
+          { subject: 'Database', pass: 90, fail: 10, average: 75 },
+          { subject: 'Networks', pass: 85, fail: 15, average: 72 },
+          { subject: 'Algorithms', pass: 80, fail: 20, average: 68 }
+        ],
+        topPerformers: [
+          { name: 'John Doe', cgpa: 9.8 },
+          { name: 'Jane Smith', cgpa: 9.7 },
+          { name: 'Bob Johnson', cgpa: 9.6 }
+        ]
+      };
+    }
+  });
 
   return (
     <div className="space-y-6">
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div className="space-y-2">
-          <p className="text-sm font-medium">Average CGPA</p>
-          <p className="text-2xl font-bold">{data.averageCGPA?.toFixed(2)}</p>
-        </div>
-        <div className="space-y-2">
-          <p className="text-sm font-medium">Pass Percentage</p>
-          <p className="text-2xl font-bold">{data.passPercentage}%</p>
-        </div>
-        <div className="space-y-2">
-          <p className="text-sm font-medium">Department Rank</p>
-          <p className="text-2xl font-bold">{data.departmentRank}</p>
-        </div>
+      <div className="grid grid-cols-2 gap-4">
+        <Select
+          value={selectedBatch}
+          onChange={(e) => setSelectedBatch(e.target.value)}
+          label="Select Batch"
+          options={[
+            { value: '2024', label: '2024' },
+            { value: '2023', label: '2023' }
+          ]}
+        />
+        <Select
+          value={selectedDepartment}
+          onChange={(e) => setSelectedDepartment(e.target.value)}
+          label="Select Department"
+          options={[
+            { value: 'CSE', label: 'Computer Science' },
+            { value: 'ECE', label: 'Electronics' }
+          ]}
+        />
       </div>
 
-      <div className="h-[300px]">
-        <ResponsiveContainer width="100%" height="100%">
-          <PieChart>
-            <Pie
-              data={data.distribution}
-              labelLine={false}
-              label={renderCustomizedLabel}
-              outerRadius={100}
-              fill="#8884d8"
-              dataKey="value"
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <Card className="p-6">
+          <h3 className="text-lg font-semibold mb-4">Pass/Fail Distribution</h3>
+          <div className="h-[300px]">
+            <ResponsiveContainer>
+              <PieChart>
+                <Pie
+                  data={batchData?.passFailRate}
+                  dataKey="value"
+                  nameKey="name"
+                  cx="50%"
+                  cy="50%"
+                  innerRadius={60}
+                  outerRadius={80}
+                  label
+                >
+                  {batchData?.passFailRate.map((entry, index) => (
+                    <Cell key={index} fill={entry.color} />
+                  ))}
+                </Pie>
+                <Legend />
+                <Tooltip />
+              </PieChart>
+            </ResponsiveContainer>
+          </div>
+        </Card>
+
+        <Card className="p-6">
+          <h3 className="text-lg font-semibold mb-4">Subject-wise Analysis</h3>
+          <div className="h-[300px]">
+            <ResponsiveContainer>
+              <BarChart data={batchData?.subjectWiseAnalysis}>
+                <Bar dataKey="average" fill="#4F46E5" name="Average Score" />
+                <Bar dataKey="pass" fill="#4ade80" name="Pass Rate" />
+                <Legend />
+                <Tooltip />
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
+        </Card>
+      </div>
+
+      <Card className="p-6">
+        <h3 className="text-lg font-semibold mb-4">Top Performers</h3>
+        <div className="space-y-4">
+          {batchData?.topPerformers.map((student, index) => (
+            <div 
+              key={index}
+              className="flex items-center justify-between p-4 bg-gradient-to-r from-indigo-50 to-blue-50 rounded-lg"
             >
-              {data.distribution.map((entry, index) => (
-                <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-              ))}
-            </Pie>
-            <Legend />
-          </PieChart>
-        </ResponsiveContainer>
-      </div>
-
-      <div className="space-y-4">
-        <div className="space-y-2">
-          <div className="flex justify-between">
-            <span className="text-sm font-medium">Attendance</span>
-            <span>{data.performanceMetrics?.attendance}%</span>
-          </div>
-          <Progress value={data.performanceMetrics?.attendance || 0} />
+              <div className="flex items-center gap-4">
+                <div className="w-8 h-8 rounded-full bg-indigo-600 text-white flex items-center justify-center font-bold">
+                  {index + 1}
+                </div>
+                <span className="font-medium">{student.name}</span>
+              </div>
+              <span className="text-indigo-600 font-semibold">CGPA: {student.cgpa}</span>
+            </div>
+          ))}
         </div>
-        <div className="space-y-2">
-          <div className="flex justify-between">
-            <span className="text-sm font-medium">Assignment Completion</span>
-            <span>{data.performanceMetrics?.assignmentCompletion}%</span>
-          </div>
-          <Progress value={data.performanceMetrics?.assignmentCompletion || 0} />
-        </div>
-      </div>
+      </Card>
     </div>
   );
 } 

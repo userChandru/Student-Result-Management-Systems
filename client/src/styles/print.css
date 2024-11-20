@@ -1,0 +1,40 @@
+@media print {
+  @page {
+    size: landscape;
+    margin: 1cm;
+  }
+
+  body {
+    background: white;
+  }
+
+  .print\:hidden {
+    display: none !important;
+  }
+
+  .print\:break-before-page {
+    break-before: page;
+  }
+
+  .print\:shadow-none {
+    box-shadow: none !important;
+  }
+
+  .print\:border-none {
+    border: none !important;
+  }
+
+  .print\:bg-transparent {
+    background: transparent !important;
+  }
+
+  /* Ensure table fits on one page */
+  table {
+    page-break-inside: avoid;
+  }
+
+  /* Improve table readability */
+  th, td {
+    border: 1px solid #e2e8f0 !important;
+  }
+} 

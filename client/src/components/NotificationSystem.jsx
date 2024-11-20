@@ -1,27 +1,135 @@
-import { useEffect } from 'react';
-import { useQuery } from '@tanstack/react-query';
-import toast from 'react-hot-toast';
-import { Bell } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { Bell, Check, X } from 'lucide-react';
+import { Card } from './ui/Card';
+import { Button } from './ui/Button';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 
 export function NotificationSystem() {
+  const [showNotifications, setShowNotifications] = useState(false);
+  const queryClient = useQueryClient();
+
   const { data: notifications } = useQuery({
     queryKey: ['notifications'],
-    queryFn: () => fetch('/api/notifications').then(res => res.json()),
-    refetchInterval: 30000 // Refetch every 30 seconds
+    queryFn: async () => {
+      // Replace with actual API call
+      return [
+        {
+          id: 1,
+          title: 'New Results Published',
+          message: 'Semester 4 results are now available',
+          type: 'result',
+          read: false,
+          timestamp: '2024-03-15T10:30:00Z'
+        },
+        {
+          id: 2,
+          title: 'Revaluation Update',
+          message: 'Your revaluation request for Database Management has been approved',
+          type: 'revaluation',
+          read: true,
+          timestamp: '2024-03-14T15:45:00Z'
+        }
+      ];
+    }
   });
 
-  useEffect(() => {
-    if (notifications?.length > 0) {
-      notifications.forEach(notification => {
-        if (!notification.read) {
-          toast(notification.message, {
-            icon: <Bell className="w-4 h-4" />,
-            duration: 5000
-          });
-        }
-      });
+  const markAsReadMutation = useMutation({
+    mutationFn: async (notificationId) => {
+      // Replace with actual API call
+      return new Promise(resolve => setTimeout(resolve, 500));
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries(['notifications']);
     }
-  }, [notifications]);
+  });
 
-  return null;
+  const unreadCount = notifications?.filter(n => !n.read).length || 0;
+
+  const getNotificationIcon = (type) => {
+    switch (type) {
+      case 'result':
+        return '📊';
+      case 'revaluation':
+        return '📝';
+      default:
+        return '📌';
+    }
+  };
+
+  const formatTimestamp = (timestamp) => {
+    return new Date(timestamp).toLocaleString();
+  };
+
+  return (
+    <div className="relative">
+      <Button
+        variant="outline"
+        size="icon"
+        className="relative"
+        onClick={() => setShowNotifications(!showNotifications)}
+      >
+        <Bell className="h-5 w-5" />
+        {unreadCount > 0 && (
+          <span className="absolute -top-1 -right-1 h-5 w-5 rounded-full bg-red-500 text-white text-xs flex items-center justify-center">
+            {unreadCount}
+          </span>
+        )}
+      </Button>
+
+      {showNotifications && (
+        <Card className="absolute right-0 mt-2 w-80 max-h-[400px] overflow-y-auto z-50 shadow-lg">
+          <div className="p-4 border-b border-slate-200">
+            <div className="flex justify-between items-center">
+              <h3 className="font-semibold">Notifications</h3>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => setShowNotifications(false)}
+              >
+                <X className="h-4 w-4" />
+              </Button>
+            </div>
+          </div>
+
+          <div className="p-2 space-y-2">
+            {notifications?.map((notification) => (
+              <div
+                key={notification.id}
+                className={`p-3 rounded-lg ${
+                  notification.read ? 'bg-white' : 'bg-blue-50'
+                }`}
+              >
+                <div className="flex items-start gap-3">
+                  <span className="text-xl">
+                    {getNotificationIcon(notification.type)}
+                  </span>
+                  <div className="flex-1">
+                    <h4 className="font-medium text-sm">
+                      {notification.title}
+                    </h4>
+                    <p className="text-sm text-slate-600">
+                      {notification.message}
+                    </p>
+                    <p className="text-xs text-slate-400 mt-1">
+                      {formatTimestamp(notification.timestamp)}
+                    </p>
+                  </div>
+                  {!notification.read && (
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      className="shrink-0"
+                      onClick={() => markAsReadMutation.mutate(notification.id)}
+                    >
+                      <Check className="h-4 w-4" />
+                    </Button>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+        </Card>
+      )}
+    </div>
+  );
 } 

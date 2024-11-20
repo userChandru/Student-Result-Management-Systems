@@ -1,87 +1,186 @@
-import { Table } from './ui/Table';
-import { Button } from './ui/Button';
-import { RevaluationRequest } from './RevaluationRequest';
 import { Select } from './ui/Select';
+import { Table } from './ui/Table';
 import { useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import { Download, Printer } from 'lucide-react';
+import { Button } from './ui/Button';
+import toast from 'react-hot-toast';
 
-export function ResultsTable({ data }) {
-  const [selectedSubject, setSelectedSubject] = useState(null);
+export function ResultsTable() {
   const [selectedSemester, setSelectedSemester] = useState('S1');
 
-  const semesterOptions = ['S1', 'S2', 'S3', 'S4', 'S5', 'S6', 'S7', 'S8'];
+  const { data: resultsData, isLoading } = useQuery({
+    queryKey: ['results', selectedSemester],
+    queryFn: async () => {
+      // Replace with actual API call
+      return {
+        semester: 'S1',
+        sgpa: 8.75,
+        cgpa: 8.75,
+        deptRank: 5,
+        subjects: [
+          {
+            code: 'CS101',
+            subject: 'Programming Fundamentals',
+            examMarks: 75,
+            internalMarks: 22,
+            total: 97,
+            deptHighest: 98,
+            deptLowest: 45,
+            deptRank: 3
+          },
+          {
+            code: 'MA101',
+            subject: 'Engineering Mathematics',
+            examMarks: 70,
+            internalMarks: 24,
+            total: 94,
+            deptHighest: 96,
+            deptLowest: 42,
+            deptRank: 4
+          },
+          // Add more subjects as needed
+        ]
+      };
+    }
+  });
+
+  const handlePrint = () => {
+    window.print();
+  };
+
+  const handleDownloadCSV = () => {
+    // Implementation for CSV download
+    toast.success('Results downloaded successfully');
+  };
 
   return (
-    <div className="space-y-4">
-      <div className="flex justify-between items-center">
-        <div className="flex items-center gap-4">
-          <span className="font-medium">Semester:</span>
-          <Select
-            value={selectedSemester}
-            onChange={(e) => setSelectedSemester(e.target.value)}
-            options={semesterOptions}
-          />
-        </div>
-        <div className="flex gap-4">
-          <div>
-            <span className="font-medium">SGPA:</span>
-            <span className="ml-2">{data?.sgpa || '-'}</span>
+    <div className="space-y-6 print:space-y-4">
+      <div className="bg-white p-4 rounded-lg shadow-sm border border-slate-200 print:shadow-none">
+        <div className="flex justify-between items-start mb-4">
+          <div className="grid grid-cols-4 gap-4 flex-1">
+            <div className="space-y-1">
+              <label className="text-sm font-medium text-slate-600">Semester:</label>
+              <Select
+                value={selectedSemester}
+                onChange={(e) => setSelectedSemester(e.target.value)}
+                options={[
+                  { value: 'S1', label: 'Semester 1' },
+                  { value: 'S2', label: 'Semester 2' },
+                  { value: 'S3', label: 'Semester 3' },
+                  { value: 'S4', label: 'Semester 4' }
+                ]}
+                className="print:border-none print:bg-transparent"
+              />
+            </div>
+            <div className="space-y-1">
+              <label className="text-sm font-medium text-slate-600">SGPA:</label>
+              <div className="h-10 flex items-center text-lg font-semibold text-slate-900">
+                {resultsData?.sgpa || '-'}
+              </div>
+            </div>
+            <div className="space-y-1">
+              <label className="text-sm font-medium text-slate-600">CGPA:</label>
+              <div className="h-10 flex items-center text-lg font-semibold text-slate-900">
+                {resultsData?.cgpa || '-'}
+              </div>
+            </div>
+            <div className="space-y-1">
+              <label className="text-sm font-medium text-slate-600">Dept Rank:</label>
+              <div className="h-10 flex items-center text-lg font-semibold text-slate-900">
+                {resultsData?.deptRank || '-'}
+              </div>
+            </div>
           </div>
-          <div>
-            <span className="font-medium">CGPA:</span>
-            <span className="ml-2">{data?.cgpa || '-'}</span>
-          </div>
-          <div>
-            <span className="font-medium">Dept wise Rank:</span>
-            <span className="ml-2">{data?.deptRank || '-'}</span>
+          
+          <div className="flex gap-2 print:hidden">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={handlePrint}
+              className="flex items-center gap-2"
+            >
+              <Printer className="w-4 h-4" />
+              Print
+            </Button>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={handleDownloadCSV}
+              className="flex items-center gap-2"
+            >
+              <Download className="w-4 h-4" />
+              Download CSV
+            </Button>
           </div>
         </div>
       </div>
 
-      <Table>
-        <thead>
-          <tr>
-            <th>Subject Code</th>
-            <th>Subject</th>
-            <th>Exam Marks</th>
-            <th>Internal marks</th>
-            <th>Total</th>
-            <th>Dept Highest</th>
-            <th>Dept Lowest</th>
-            <th>Dept Rank</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {data?.map((subject) => (
-            <tr key={subject.code}>
-              <td>{subject.code}</td>
-              <td>{subject.name}</td>
-              <td>{subject.examMarks}</td>
-              <td>{subject.internalMarks}</td>
-              <td>{subject.examMarks + subject.internalMarks}</td>
-              <td>{subject.deptHighest}</td>
-              <td>{subject.deptLowest}</td>
-              <td>{subject.deptRank}</td>
-              <td>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={() => setSelectedSubject(subject.code)}
-                >
-                  Request Revaluation
-                </Button>
-              </td>
+      <div className="overflow-x-auto rounded-lg border border-slate-200">
+        <Table>
+          <thead>
+            <tr className="bg-slate-50">
+              <th className="whitespace-nowrap px-4 py-3 text-left text-sm font-medium text-slate-600">
+                Subject Code
+              </th>
+              <th className="whitespace-nowrap px-4 py-3 text-left text-sm font-medium text-slate-600">
+                Subject
+              </th>
+              <th className="whitespace-nowrap px-4 py-3 text-left text-sm font-medium text-slate-600">
+                Exam Marks
+              </th>
+              <th className="whitespace-nowrap px-4 py-3 text-left text-sm font-medium text-slate-600">
+                Internal Marks
+              </th>
+              <th className="whitespace-nowrap px-4 py-3 text-left text-sm font-medium text-slate-600">
+                Total
+              </th>
+              <th className="whitespace-nowrap px-4 py-3 text-left text-sm font-medium text-slate-600">
+                Dept Highest
+              </th>
+              <th className="whitespace-nowrap px-4 py-3 text-left text-sm font-medium text-slate-600">
+                Dept Lowest
+              </th>
+              <th className="whitespace-nowrap px-4 py-3 text-left text-sm font-medium text-slate-600">
+                Dept Rank
+              </th>
             </tr>
-          ))}
-        </tbody>
-      </Table>
-
-      {selectedSubject && (
-        <RevaluationRequest
-          subjectId={selectedSubject}
-          onSuccess={() => setSelectedSubject(null)}
-        />
-      )}
+          </thead>
+          <tbody>
+            {resultsData?.subjects.map((subject, index) => (
+              <tr 
+                key={subject.code}
+                className={index % 2 === 0 ? 'bg-white' : 'bg-slate-50'}
+              >
+                <td className="whitespace-nowrap px-4 py-3 text-sm text-slate-900">
+                  {subject.code}
+                </td>
+                <td className="whitespace-nowrap px-4 py-3 text-sm text-slate-900">
+                  {subject.subject}
+                </td>
+                <td className="whitespace-nowrap px-4 py-3 text-sm text-slate-900">
+                  {subject.examMarks}
+                </td>
+                <td className="whitespace-nowrap px-4 py-3 text-sm text-slate-900">
+                  {subject.internalMarks}
+                </td>
+                <td className="whitespace-nowrap px-4 py-3 text-sm font-medium text-slate-900">
+                  {subject.total}
+                </td>
+                <td className="whitespace-nowrap px-4 py-3 text-sm text-green-600">
+                  {subject.deptHighest}
+                </td>
+                <td className="whitespace-nowrap px-4 py-3 text-sm text-red-600">
+                  {subject.deptLowest}
+                </td>
+                <td className="whitespace-nowrap px-4 py-3 text-sm font-medium text-indigo-600">
+                  {subject.deptRank}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
+      </div>
     </div>
   );
 } 

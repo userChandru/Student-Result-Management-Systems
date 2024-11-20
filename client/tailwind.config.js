@@ -52,9 +52,64 @@ export default {
   				'3': 'hsl(var(--chart-3))',
   				'4': 'hsl(var(--chart-4))',
   				'5': 'hsl(var(--chart-5))'
+  			},
+  			'custom-gradient': {
+  				start: '#4F46E5',
+  				end: '#2563EB',
+  			},
+  			'custom-indigo': {
+  				50: '#EEF2FF',
+  				100: '#E0E7FF',
+  				600: '#4F46E5',
+  				700: '#4338CA',
+  				900: '#312E81',
+  			},
+  			'custom-blue': {
+  				50: '#EFF6FF',
+  				100: '#DBEAFE',
+  				600: '#2563EB',
+  				700: '#1D4ED8',
+  			},
+  			'gradient': {
+  				'primary-start': '#4F46E5',
+  				'primary-end': '#2563EB',
+  				'secondary-start': '#EC4899',
+  				'secondary-end': '#8B5CF6',
+  				'success-start': '#10B981',
+  				'success-end': '#059669',
+  				'warning-start': '#F59E0B',
+  				'warning-end': '#D97706',
+  			},
+  			'custom': {
+  				'bg-start': '#F8FAFC',
+  				'bg-end': '#EFF6FF',
+  				'card': 'rgba(255, 255, 255, 0.8)',
+  				'card-hover': 'rgba(255, 255, 255, 0.9)',
+  			},
+  		},
+  		boxShadow: {
+  			'custom': '0 0 50px -12px rgba(79, 70, 229, 0.25)',
+  		},
+  		backgroundImage: {
+  			'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+  			'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+  		},
+  		backgroundColor: {
+  			'dark': {
+  				'primary': '#1a1b1e',
+  				'secondary': '#25262b',
+  				'accent': '#2c2d32'
+  			}
+  		},
+  		textColor: {
+  			'dark': {
+  				'primary': '#ffffff',
+  				'secondary': '#a1a1aa',
+  				'accent': '#71717a'
   			}
   		}
   	}
   },
   plugins: [require("tailwindcss-animate")],
+  darkMode: 'class',
 }

@@ -33,7 +33,7 @@ export function ParentDashboard() {
   });
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6  w-screen">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <Card className="p-4 col-span-2">
           <h3 className="font-semibold mb-4">Academic Overview</h3>

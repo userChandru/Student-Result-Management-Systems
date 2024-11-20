@@ -1,49 +1,30 @@
-import { Routes as RouterRoutes, Route, Navigate } from 'react-router-dom';
-import { useAuth } from './context/AuthContext';
-import { Layout } from './components/Layout';
-import { StudentDashboard } from './pages/StudentDashboard';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import { StaffDashboard } from './pages/StaffDashboard';
-import { ParentDashboard } from './pages/ParentDashboard';
 import { Login } from './pages/Login';
-import { ErrorBoundary } from './components/ErrorBoundary';
+import { StudentDashboard } from './pages/StudentDashboard';
+import { PrivateRoute } from './components/PrivateRoute';
 
-export function Routes() {
-  const { user, loading } = useAuth();
-
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-
+export function AppRoutes() {
   return (
-    <ErrorBoundary>
-      <RouterRoutes>
-        <Route path="/login" element={!user ? <Login /> : <Navigate to="/" />} />
-        
-        <Route element={<Layout />}>
-          <Route
-            path="/"
-            element={
-              user ? (
-                user.role === 'student' ? (
-                  <ErrorBoundary>
-                    <StudentDashboard />
-                  </ErrorBoundary>
-                ) : user.role === 'staff' ? (
-                  <ErrorBoundary>
-                    <StaffDashboard />
-                  </ErrorBoundary>
-                ) : (
-                  <ErrorBoundary>
-                    <ParentDashboard />
-                  </ErrorBoundary>
-                )
-              ) : (
-                <Navigate to="/login" />
-              )
-            }
-          />
-        </Route>
-      </RouterRoutes>
-    </ErrorBoundary>
+    <Routes>
+      <Route path="/login" element={<Login />} />
+      <Route 
+        path="/student/*" 
+        element={
+          <PrivateRoute role="student">
+            <StudentDashboard />
+          </PrivateRoute>
+        } 
+      />
+      <Route 
+        path="/staff/*" 
+        element={
+          <PrivateRoute role="staff">
+            <StaffDashboard />
+          </PrivateRoute>
+        } 
+      />
+      <Route path="/" element={<Navigate to="/login" replace />} />
+    </Routes>
   );
 } 

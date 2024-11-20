@@ -1,25 +1,35 @@
 import { createContext, useContext, useState, useEffect } from 'react';
-import { jwtDecode } from 'jwt-decode';
+import api from '../lib/axios';
 
 const AuthContext = createContext(null);
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (token) {
-      const decoded = jwtDecode(token);
-      setUser(decoded);
+  const checkAuth = async () => {
+    try {
+      const token = localStorage.getItem('token');
+      if (!token) {
+        setUser(null);
+        setIsLoading(false);
+        return;
+      }
+
+      const response = await api.get('/auth/check');
+      setUser(response.data.user);
+    } catch (error) {
+      console.error('Auth check failed:', error);
+      setUser(null);
+      localStorage.removeItem('token');
+    } finally {
+      setIsLoading(false);
     }
-    setLoading(false);
-  }, []);
+  };
 
-  const login = (token) => {
+  const login = async (token) => {
     localStorage.setItem('token', token);
-    const decoded = jwtDecode(token);
-    setUser(decoded);
+    await checkAuth();
   };
 
   const logout = () => {
@@ -27,8 +37,12 @@ export function AuthProvider({ children }) {
     setUser(null);
   };
 
+  useEffect(() => {
+    checkAuth();
+  }, []);
+
   return (
-    <AuthContext.Provider value={{ user, loading, login, logout }}>
+    <AuthContext.Provider value={{ user, isLoading, login, logout }}>
       {children}
     </AuthContext.Provider>
   );
