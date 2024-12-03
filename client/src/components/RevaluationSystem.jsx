@@ -68,9 +68,9 @@ export function RevaluationSystem() {
 
   return (
     <div className="space-y-6">
-      <Card className="p-6">
-        <h3 className="text-lg font-semibold mb-4">Request Revaluation</h3>
-        <div className="space-y-4">
+      <Card className="p-6 border border-slate-200 dark:border-slate-600">
+        <h3 className="text-lg font-semibold mb-4 text-slate-900 dark:text-slate-100">Request Revaluation</h3>
+        <div className="space-y-4 text-slate-900 dark:text-slate-100">
           <Select
             value={selectedSubject}
             onChange={(e) => setSelectedSubject(e.target.value)}
@@ -79,6 +79,8 @@ export function RevaluationSystem() {
               { value: 'DSA', label: 'Data Structures' }
             ]}
             label="Select Subject"
+            className=" text-slate-900 border border-slate-200 dark:text-slate-100 print:border-none print:bg-transparent dark:text-slate-900 dark:bg-slate-800 dark:text-slate-100 dark:border-slate-700 dark:hover:border-slate-100"
+
           />
           <Button 
             onClick={() => submitMutation.mutate({ subject: selectedSubject })}
@@ -90,13 +92,13 @@ export function RevaluationSystem() {
         </div>
       </Card>
 
-      <Card className="p-6">
-        <h3 className="text-lg font-semibold mb-4">Revaluation Status</h3>
+      <Card className="p-6 border border-slate-200 dark:border-slate-600">
+        <h3 className="text-lg font-semibold mb-4 text-slate-900 dark:text-slate-100">Revaluation Status</h3>
         <div className="space-y-4">
           {revaluations?.map((request) => (
             <div 
               key={request.id}
-              className="p-4 rounded-lg border border-slate-200 space-y-2"
+              className="p-4 rounded-lg border border-slate-200 dark:border-slate-500 space-y-2 text-slate-900 dark:text-slate-100"
             >
               <div className="flex items-center justify-between">
                 <h4 className="font-medium">{request.subject}</h4>
@@ -106,18 +108,18 @@ export function RevaluationSystem() {
                 </div>
               </div>
               
-              <div className="text-sm text-slate-600">
+              <div className="text-sm text-slate-600 dark:text-slate-400">
                 <p>Current Mark: {request.currentMark}</p>
                 {request.updatedMark && (
                   <p className="text-green-600">Updated Mark: {request.updatedMark}</p>
                 )}
-                <p className="text-xs mt-1">Submitted: {request.submittedDate}</p>
+                <p className="text-xs mt-1 dark:text-slate-400">Submitted: {request.submittedDate}</p>
               </div>
 
               {request.feedback && (
-                <div className="text-sm bg-slate-50 p-2 rounded mt-2">
+                <div className="text-sm bg-slate-50 p-2 rounded mt-2 dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
                   <p className="font-medium">Feedback:</p>
-                  <p className="text-slate-600">{request.feedback}</p>
+                  <p className="text-slate-600 dark:text-slate-400">{request.feedback}</p>
                 </div>
               )}
             </div>

@@ -11,8 +11,8 @@ export function PerformanceComparison({ data }) {
   ];
 
   return (
-    <Card className="p-6">
-      <h3 className="text-lg font-semibold mb-4">Performance Analysis</h3>
+    <Card className="p-6 border border-slate-200 dark:border-slate-400">
+      <h3 className="text-lg font-semibold mb-4 text-slate-900 dark:text-slate-100">Performance Analysis</h3>
       <div className="h-[400px]">
         <ResponsiveContainer width="100%" height="100%">
           <RadarChart data={subjectData}>

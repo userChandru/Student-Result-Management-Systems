@@ -15,6 +15,13 @@ const users = [
     password: 'password123',
     role: 'staff',
     name: 'Jane Smith'
+  },
+  {
+    id: 3,
+    username: 'parent123',
+    password: 'password123',
+    role: 'parent',
+    name: 'Rob Marker'
   }
 ];
 

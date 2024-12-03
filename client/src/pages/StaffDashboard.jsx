@@ -46,7 +46,7 @@ export function StaffDashboard() {
 
   return (
     <div className="space-y-6  w-screen">
-      <div className="flex gap-4 items-center">
+      {/* <div className="flex gap-4 items-center">
         <Select
           value={selectedBatch}
           onChange={(e) => setSelectedBatch(e.target.value)}
@@ -59,7 +59,7 @@ export function StaffDashboard() {
           options={['CSE', 'ECE', 'MECH']}
           label="Department"
         />
-      </div>
+      </div> */}
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <Card className="p-4">

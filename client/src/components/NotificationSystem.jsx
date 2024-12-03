@@ -65,10 +65,10 @@ export function NotificationSystem() {
       <Button
         variant="outline"
         size="icon"
-        className="relative"
+        className="relative dark:bg-slate-800 dark:border-slate-700 dark:hover:border-slate-600"
         onClick={() => setShowNotifications(!showNotifications)}
       >
-        <Bell className="h-5 w-5" />
+        <Bell className="h-5 w-5 dark:text-slate-100" />
         {unreadCount > 0 && (
           <span className="absolute -top-1 -right-1 h-5 w-5 rounded-full bg-red-500 text-white text-xs flex items-center justify-center">
             {unreadCount}
@@ -95,7 +95,7 @@ export function NotificationSystem() {
             {notifications?.map((notification) => (
               <div
                 key={notification.id}
-                className={`p-3 rounded-lg ${
+                className={`p-3 rounded-lg dark:bg-slate-700 ${
                   notification.read ? 'bg-white' : 'bg-blue-50'
                 }`}
               >
@@ -104,10 +104,10 @@ export function NotificationSystem() {
                     {getNotificationIcon(notification.type)}
                   </span>
                   <div className="flex-1">
-                    <h4 className="font-medium text-sm">
-                      {notification.title}
+                    <h4 className="font-medium text-sm dark:text-slate-100">
+                      {notification.title}  
                     </h4>
-                    <p className="text-sm text-slate-600">
+                    <p className="text-sm text-slate-600 dark:text-slate-400">
                       {notification.message}
                     </p>
                     <p className="text-xs text-slate-400 mt-1">

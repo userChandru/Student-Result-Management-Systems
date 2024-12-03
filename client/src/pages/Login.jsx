@@ -41,6 +41,9 @@ export function Login() {
           case 'staff':
             navigate('/staff');
             break;
+          case 'parent':
+            navigate('/parent');
+            break;
           default:
             navigate('/dashboard');
         }

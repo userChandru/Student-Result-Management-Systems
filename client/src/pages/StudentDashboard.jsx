@@ -27,8 +27,8 @@ export function StudentDashboard() {
         <div className="space-y-8">
           {/* Results Section */}
           <section>
-            <Card className="p-6">
-              <h2 className="text-xl font-semibold mb-6">Semester Results</h2>
+            <Card className="p-6 border border-slate-200 dark:border-slate-400">
+              <h2 className="text-xl font-semibold mb-6 text-slate-900 dark:text-slate-100">Semester Results</h2>
               <ResultsTable />
             </Card>
           </section>
@@ -41,8 +41,8 @@ export function StudentDashboard() {
 
           {/* Revaluation Section */}
           <section>
-            <Card className="p-6">
-              <h2 className="text-xl font-semibold mb-6">Revaluation Requests</h2>
+            <Card className="p-6 border border-slate-200 dark:border-slate-400">
+              <h2 className="text-xl font-semibold mb-6 text-slate-900 dark:text-slate-100">Revaluation Requests</h2>
               <RevaluationSystem />
             </Card>
           </section>

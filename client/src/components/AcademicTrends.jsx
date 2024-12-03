@@ -31,9 +31,9 @@ export function AcademicTrends({ data }) {
   };
 
   return (
-    <Card className="p-6">
+    <Card className="p-6 border border-slate-200 dark:border-slate-400">
       <div className="flex items-center justify-between mb-6">
-        <h3 className="text-lg font-semibold">Academic Progress</h3>
+        <h3 className="text-lg font-semibold text-slate-900 dark:text-slate-100">Academic Progress</h3>
         <div className="flex gap-2">
           <Button
             variant={viewType === 'cgpa' ? 'default' : 'outline'}

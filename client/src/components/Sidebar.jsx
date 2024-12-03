@@ -7,7 +7,7 @@ export function Sidebar() {
   const navigate = useNavigate();
 
   return (
-    <div className="w-72 h-full bg-white/80 backdrop-blur-sm border-r border-slate-200 shadow-lg flex flex-col">
+    <div className="w-72 min-h-screen bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm border-r border-slate-200 dark:border-slate-700 shadow-lg flex flex-col">
       <div className="p-6 border-b border-slate-200">
         <h1 className="text-2xl font-bold bg-gradient-to-r from-indigo-600 to-blue-600 bg-clip-text text-transparent">
           Student Results

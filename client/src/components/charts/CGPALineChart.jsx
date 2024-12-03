@@ -7,15 +7,28 @@ export function CGPALineChart({ data }) {
     <div className="h-[300px]">
       <ResponsiveContainer width="100%" height="100%">
         <LineChart data={data}>
-          <XAxis dataKey="semester" />
-          <YAxis domain={[0, 10]} />
-          <Tooltip />
+          <XAxis
+            dataKey="semester"
+            stroke="currentColor"
+            className="text-slate-600 dark:text-slate-400"
+          />
+          <YAxis
+            stroke="currentColor"
+            className="text-slate-600 dark:text-slate-400"
+          />
+          <Tooltip
+            contentStyle={{
+              backgroundColor: 'var(--background)',
+              borderColor: 'var(--border)',
+              color: 'var(--foreground)'
+            }}
+          />
           <Line
             type="monotone"
             dataKey="cgpa"
-            stroke="hsl(var(--primary))"
+            stroke="var(--primary)"
             strokeWidth={2}
-            dot={{ fill: "hsl(var(--primary))" }}
+            dot={{ fill: "var(--primary)" }}
           />
         </LineChart>
       </ResponsiveContainer>

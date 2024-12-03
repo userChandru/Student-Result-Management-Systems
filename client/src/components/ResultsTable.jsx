@@ -56,11 +56,11 @@ export function ResultsTable() {
 
   return (
     <div className="space-y-6 print:space-y-4">
-      <div className="bg-white p-4 rounded-lg shadow-sm border border-slate-200 print:shadow-none">
+      <div className="bg-white dark:bg-slate-800 dark:border-slate-600 p-4 rounded-lg shadow-sm border border-slate-200 print:shadow-none">
         <div className="flex justify-between items-start mb-4">
           <div className="grid grid-cols-4 gap-4 flex-1">
             <div className="space-y-1">
-              <label className="text-sm font-medium text-slate-600">Semester:</label>
+              <label className="text-sm font-medium text-slate-600 dark:text-slate-400">Semester:</label>
               <Select
                 value={selectedSemester}
                 onChange={(e) => setSelectedSemester(e.target.value)}
@@ -70,24 +70,24 @@ export function ResultsTable() {
                   { value: 'S3', label: 'Semester 3' },
                   { value: 'S4', label: 'Semester 4' }
                 ]}
-                className="print:border-none print:bg-transparent"
+                className="print:border-none print:bg-transparent text-slate-600 border border-slate-200 dark:text-slate-900 dark:bg-slate-800 dark:text-slate-100 dark:border-slate-700 dark:hover:border-slate-100"
               />
             </div>
             <div className="space-y-1">
-              <label className="text-sm font-medium text-slate-600">SGPA:</label>
-              <div className="h-10 flex items-center text-lg font-semibold text-slate-900">
+              <label className="text-sm font-medium text-slate-600 dark:text-slate-400">SGPA:</label>
+              <div className="h-10 flex items-center text-lg font-semibold text-slate-900 dark:text-slate-100">
                 {resultsData?.sgpa || '-'}
               </div>
             </div>
             <div className="space-y-1">
-              <label className="text-sm font-medium text-slate-600">CGPA:</label>
-              <div className="h-10 flex items-center text-lg font-semibold text-slate-900">
+              <label className="text-sm font-medium text-slate-600 dark:text-slate-400">CGPA:</label>
+              <div className="h-10 flex items-center text-lg font-semibold text-slate-900 dark:text-slate-100">
                 {resultsData?.cgpa || '-'}
               </div>
             </div>
             <div className="space-y-1">
-              <label className="text-sm font-medium text-slate-600">Dept Rank:</label>
-              <div className="h-10 flex items-center text-lg font-semibold text-slate-900">
+              <label className="text-sm font-medium text-slate-600 dark:text-slate-400">Dept Rank:</label>
+              <div className="h-10 flex items-center text-lg font-semibold text-slate-900 dark:text-slate-100">
                 {resultsData?.deptRank || '-'}
               </div>
             </div>
@@ -98,7 +98,7 @@ export function ResultsTable() {
               variant="outline"
               size="sm"
               onClick={handlePrint}
-              className="flex items-center gap-2"
+              className="flex items-center gap-2 dark:bg-slate-800 dark:text-slate-100 dark:hover:bg-slate-600 dark:hover:text-slate-100"
             >
               <Printer className="w-4 h-4" />
               Print
@@ -107,7 +107,7 @@ export function ResultsTable() {
               variant="outline"
               size="sm"
               onClick={handleDownloadCSV}
-              className="flex items-center gap-2"
+              className="flex items-center gap-2 dark:bg-slate-800 dark:text-slate-100 dark:hover:bg-slate-600 dark:hover:text-slate-100"
             >
               <Download className="w-4 h-4" />
               Download CSV
@@ -116,32 +116,32 @@ export function ResultsTable() {
         </div>
       </div>
 
-      <div className="overflow-x-auto rounded-lg border border-slate-200">
+      <div className="overflow-x-auto rounded-lg border border-slate-200 dark:border-slate-600">
         <Table>
           <thead>
             <tr className="bg-slate-50">
-              <th className="whitespace-nowrap px-4 py-3 text-left text-sm font-medium text-slate-600">
+              <th className="whitespace-nowrap px-4 py-3 text-left text-sm font-medium text-slate-600 dark:bg-slate-800 dark:text-slate-100">
                 Subject Code
               </th>
-              <th className="whitespace-nowrap px-4 py-3 text-left text-sm font-medium text-slate-600">
+              <th className="whitespace-nowrap px-4 py-3 text-left text-sm font-medium text-slate-600 dark:bg-slate-800 dark:text-slate-100">
                 Subject
               </th>
-              <th className="whitespace-nowrap px-4 py-3 text-left text-sm font-medium text-slate-600">
+              <th className="whitespace-nowrap px-4 py-3 text-left text-sm font-medium text-slate-600 dark:bg-slate-800 dark:text-slate-100">
                 Exam Marks
               </th>
-              <th className="whitespace-nowrap px-4 py-3 text-left text-sm font-medium text-slate-600">
+              <th className="whitespace-nowrap px-4 py-3 text-left text-sm font-medium text-slate-600 dark:bg-slate-800 dark:text-slate-100">
                 Internal Marks
               </th>
-              <th className="whitespace-nowrap px-4 py-3 text-left text-sm font-medium text-slate-600">
+              <th className="whitespace-nowrap px-4 py-3 text-left text-sm font-medium text-slate-600 dark:bg-slate-800 dark:text-slate-100">
                 Total
               </th>
-              <th className="whitespace-nowrap px-4 py-3 text-left text-sm font-medium text-slate-600">
+              <th className="whitespace-nowrap px-4 py-3 text-left text-sm font-medium text-slate-600 dark:bg-slate-800 dark:text-slate-100">
                 Dept Highest
               </th>
-              <th className="whitespace-nowrap px-4 py-3 text-left text-sm font-medium text-slate-600">
+              <th className="whitespace-nowrap px-4 py-3 text-left text-sm font-medium text-slate-600 dark:bg-slate-800 dark:text-slate-100 ">
                 Dept Lowest
               </th>
-              <th className="whitespace-nowrap px-4 py-3 text-left text-sm font-medium text-slate-600">
+              <th className="whitespace-nowrap px-4 py-3 text-left text-sm font-medium text-slate-600 dark:bg-slate-800 dark:text-slate-100 ">
                 Dept Rank
               </th>
             </tr>
@@ -150,30 +150,33 @@ export function ResultsTable() {
             {resultsData?.subjects.map((subject, index) => (
               <tr 
                 key={subject.code}
-                className={index % 2 === 0 ? 'bg-white' : 'bg-slate-50'}
+                className={`
+                  border-b border-slate-100 dark:border-slate-700/50
+                  ${index % 2 === 0 ? 'bg-white dark:bg-slate-700' : 'bg-slate-50/50 dark:bg-slate-800/50'}
+                `}
               >
-                <td className="whitespace-nowrap px-4 py-3 text-sm text-slate-900">
+                <td className="whitespace-nowrap px-4 py-3 text-sm text-slate-900 dark:text-slate-100">
                   {subject.code}
                 </td>
-                <td className="whitespace-nowrap px-4 py-3 text-sm text-slate-900">
+                <td className="whitespace-nowrap px-4 py-3 text-sm text-slate-900 dark:text-slate-100">
                   {subject.subject}
                 </td>
-                <td className="whitespace-nowrap px-4 py-3 text-sm text-slate-900">
+                <td className="whitespace-nowrap px-4 py-3 text-sm text-slate-900 dark:text-slate-100">
                   {subject.examMarks}
                 </td>
-                <td className="whitespace-nowrap px-4 py-3 text-sm text-slate-900">
+                <td className="whitespace-nowrap px-4 py-3 text-sm text-slate-900 dark:text-slate-100">
                   {subject.internalMarks}
                 </td>
-                <td className="whitespace-nowrap px-4 py-3 text-sm font-medium text-slate-900">
+                <td className="whitespace-nowrap px-4 py-3 text-sm font-medium text-slate-900 dark:text-slate-100">
                   {subject.total}
                 </td>
-                <td className="whitespace-nowrap px-4 py-3 text-sm text-green-600">
+                <td className="whitespace-nowrap px-4 py-3 text-sm text-green-600 dark:text-green-400">
                   {subject.deptHighest}
                 </td>
-                <td className="whitespace-nowrap px-4 py-3 text-sm text-red-600">
+                <td className="whitespace-nowrap px-4 py-3 text-sm text-red-600 dark:text-red-400">
                   {subject.deptLowest}
                 </td>
-                <td className="whitespace-nowrap px-4 py-3 text-sm font-medium text-indigo-600">
+                <td className="whitespace-nowrap px-4 py-3 text-sm font-medium text-indigo-600 dark:text-indigo-400">
                   {subject.deptRank}
                 </td>
               </tr>
