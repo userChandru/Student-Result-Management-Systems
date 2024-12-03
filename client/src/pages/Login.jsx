@@ -101,7 +101,7 @@ export function Login() {
           </div>
         </div>
 
-        <Card className="p-10 shadow-2xl bg-white/90 backdrop-blur-sm border border-white/50">
+        <Card className="p-10 shadow-2xl bg-white backdrop-blur-sm">
           <div className="text-center mb-10">
             <h2 className="text-3xl font-bold bg-gradient-to-r from-indigo-700 to-blue-600 bg-clip-text text-transparent">
               Welcome Back
@@ -117,7 +117,8 @@ export function Login() {
               options={roleOptions}
               icon={<UserCircle className="w-5 h-5 text-indigo-500" />}
               label="Login as"
-              className="bg-white/80 border-indigo-100 focus:border-indigo-300"
+              labelClassName="text-gray-700"
+              className="bg-white/80 border-indigo-100 text-slate-400 focus:border-indigo-300"
             />
             
             <div className="relative">
@@ -129,7 +130,7 @@ export function Login() {
                 value={formData.username}
                 onChange={handleChange}
                 required
-                className="pl-12 bg-white/80 border-indigo-100 focus:border-indigo-300"
+                className="pl-12 bg-white/80 text-slate-700 border-indigo-100 focus:border-indigo-300"
               />
             </div>
 
@@ -142,7 +143,7 @@ export function Login() {
                 value={formData.password}
                 onChange={handleChange}
                 required
-                className="pl-12 bg-white/80 border-indigo-100 focus:border-indigo-300"
+                className="pl-12 bg-white/80 border-indigo-100 text-slate-700 focus:border-indigo-300"
               />
             </div>
 

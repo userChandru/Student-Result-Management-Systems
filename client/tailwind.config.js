@@ -79,6 +79,12 @@ export default {
   				'success-end': '#059669',
   				'warning-start': '#F59E0B',
   				'warning-end': '#D97706',
+  				'purple-start': '#818CF8',
+  				'purple-end': '#6366F1',
+  				'teal-start': '#2DD4BF',
+  				'teal-end': '#14B8A6',
+  				'orange-start': '#FB923C',
+  				'orange-end': '#F97316',
   			},
   			'custom': {
   				'bg-start': '#F8FAFC',

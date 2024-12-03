@@ -9,11 +9,12 @@ export function AcademicProgress({ data }) {
     <div className="space-y-6">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="space-y-2">
-          <h4 className="text-sm font-medium text-slate-600">Credits Progress</h4>
-          <div className="bg-white/80 backdrop-blur-sm p-4 rounded-lg border border-slate-200">
+          <h4 className="text-sm font-medium text-slate-700 dark:text-slate-300">Credits Progress</h4>
+          <div className="bg-gradient-to-br from-white to-indigo-50/30 backdrop-blur-sm p-4 rounded-lg border border-indigo-100">
             <Progress 
               value={(data.completedCredits / data.totalCredits) * 100} 
-              className="h-2 bg-slate-100"
+              className="h-2 bg-indigo-100"
+              indicatorClassName="bg-gradient-to-r from-indigo-600 to-blue-500"
             />
             <div className="mt-2 flex justify-between text-sm">
               <span className="text-slate-600">{data.completedCredits} completed</span>
@@ -23,7 +24,7 @@ export function AcademicProgress({ data }) {
         </div>
 
         <div className="space-y-2">
-          <h4 className="text-sm font-medium text-slate-600">Current CGPA</h4>
+          <h4 className="text-sm font-medium text-slate-700 dark:text-slate-300">Current CGPA</h4>
           <div className="bg-white/80 backdrop-blur-sm p-4 rounded-lg border border-slate-200">
             <div className="text-3xl font-bold bg-gradient-to-r from-indigo-600 to-blue-600 bg-clip-text text-transparent">
               {data.currentCGPA?.toFixed(2)}
@@ -33,7 +34,7 @@ export function AcademicProgress({ data }) {
         </div>
       </div>
 
-      <div className="bg-white/80 backdrop-blur-sm p-4 rounded-lg border border-slate-200">
+      <div className="bg-white/80 backdrop-blur-sm p-4 rounded-lg border border-slate-200 dark:bg-white/85">
         <h4 className="text-sm font-medium text-slate-600 mb-4">GPA Trend</h4>
         <div className="h-[200px]">
           <ResponsiveContainer width="100%" height="100%">

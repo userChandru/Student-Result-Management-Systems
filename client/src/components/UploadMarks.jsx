@@ -58,7 +58,7 @@ export function UploadMarks() {
       <Card className="p-6">
         <div className="space-y-4">
           <div className="flex items-center justify-between">
-            <h3 className="text-lg font-semibold">Upload Marks</h3>
+            <h3 className="text-lg font-semibold text-slate-900 dark:text-slate-100">Upload Marks</h3>
             <a 
               href="/template.csv" 
               download 

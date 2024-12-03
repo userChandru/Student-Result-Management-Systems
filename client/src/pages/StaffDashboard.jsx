@@ -7,6 +7,8 @@ import { BatchAnalytics } from '../components/BatchAnalytics';
 import { RevaluationTable } from '../components/RevaluationTable';
 import { TopPerformers } from '../components/TopPerformers';
 import { UploadMarks } from '../components/UploadMarks';
+import { NotificationSystem } from '../components/NotificationSystem';
+import { ThemeToggle } from '../components/ThemeToggle';
 
 export function StaffDashboard() {
   const [selectedBatch, setSelectedBatch] = useState('2024');
@@ -45,43 +47,64 @@ export function StaffDashboard() {
   });
 
   return (
-    <div className="space-y-6  w-screen">
-      {/* <div className="flex gap-4 items-center">
-        <Select
-          value={selectedBatch}
-          onChange={(e) => setSelectedBatch(e.target.value)}
-          options={['2024', '2025', '2026']}
-          label="Batch"
-        />
-        <Select
-          value={selectedDepartment}
-          onChange={(e) => setSelectedDepartment(e.target.value)}
-          options={['CSE', 'ECE', 'MECH']}
-          label="Department"
-        />
-      </div> */}
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-900 w-screen">
+      <header className="bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700">
+        <div className="container mx-auto px-4 py-4">
+          <div className="flex items-center justify-between">
+            <h1 className="text-2xl font-bold text-slate-900 dark:text-white">
+              Staff Dashboard
+            </h1>
+            <div className="flex items-center gap-4">
+              {/* <div className="flex gap-4 items-center">
+                <Select
+                  value={selectedBatch}
+                  onChange={(e) => setSelectedBatch(e.target.value)}
+                  options={['2024', '2025', '2026']}
+                  label="Batch"
+                  labelClassName="text-slate-900 dark:text-slate-100"
+                  className="bg-white/80 border-indigo-100 text-slate-700 focus:border-indigo-300"
+                />
+                <Select
+                  value={selectedDepartment}
+                  onChange={(e) => setSelectedDepartment(e.target.value)}
+                  options={['CSE', 'ECE', 'MECH']}
+                  label="Department"
+                  labelClassName="text-slate-900 dark:text-slate-100"
+                  className="bg-white/80 border-indigo-100 text-slate-700 focus:border-indigo-300"
+                />
+              </div> */}
+              <NotificationSystem />
+              <ThemeToggle />
+            </div>
+          </div>
+        </div>
+      </header>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <Card className="p-4">
-          <h3 className="font-semibold mb-4">Batch Analytics</h3>
-          <BatchAnalytics data={batchData?.analytics} />
-        </Card>
+      <main className="container mx-auto px-4 py-8">
+        <div className="space-y-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <Card className="p-4">
+              <h3 className="font-semibold mb-4 text-slate-900 dark:text-slate-100">Batch Analytics</h3>
+              <BatchAnalytics data={batchData?.analytics} />
+            </Card>
 
-        <Card className="p-4">
-          <h3 className="font-semibold mb-4">Top Performers</h3>
-          <TopPerformers data={batchData?.topPerformers} />
-        </Card>
-      </div>
+            <Card className="p-4">
+              <h3 className="font-semibold mb-4 text-slate-900 dark:text-slate-100">Top Performers</h3>
+              <TopPerformers data={batchData?.topPerformers} />
+            </Card>
+          </div>
 
-      <Card className="p-4">
-        <h3 className="font-semibold mb-4">Upload Marks</h3>
-        <UploadMarks batch={selectedBatch} department={selectedDepartment} />
-      </Card>
+          <Card className="p-4">
+            <h3 className="font-semibold mb-4 text-slate-900 dark:text-slate-100">Upload Marks</h3>
+            <UploadMarks batch={selectedBatch} department={selectedDepartment} />
+          </Card>
 
-      <Card className="p-4">
-        <h3 className="font-semibold mb-4">Revaluation Requests</h3>
-        <RevaluationTable />
-      </Card>
+          <Card className="p-4">
+            <h3 className="font-semibold mb-4 text-slate-900 dark:text-slate-100">Revaluation Requests</h3>
+            <RevaluationTable />
+          </Card>
+        </div>
+      </main>
     </div>
   );
 } 

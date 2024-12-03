@@ -38,25 +38,29 @@ export function BatchAnalytics() {
           value={selectedBatch}
           onChange={(e) => setSelectedBatch(e.target.value)}
           label="Select Batch"
+          labelClassName="text-slate-900 dark:text-slate-100"
           options={[
             { value: '2024', label: '2024' },
             { value: '2023', label: '2023' }
           ]}
+          className="bg-white/80 border-indigo-100 text-slate-700 focus:border-indigo-300"
         />
         <Select
           value={selectedDepartment}
           onChange={(e) => setSelectedDepartment(e.target.value)}
           label="Select Department"
+          labelClassName="text-slate-900 dark:text-slate-100"
           options={[
             { value: 'CSE', label: 'Computer Science' },
             { value: 'ECE', label: 'Electronics' }
           ]}
+          className="bg-white/80 border-indigo-100 text-slate-700 focus:border-indigo-300"
         />
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <Card className="p-6">
-          <h3 className="text-lg font-semibold mb-4">Pass/Fail Distribution</h3>
+          <h3 className="text-lg font-semibold mb-4 text-slate-900 dark:text-slate-100">Pass/Fail Distribution</h3>
           <div className="h-[300px]">
             <ResponsiveContainer>
               <PieChart>
@@ -82,7 +86,7 @@ export function BatchAnalytics() {
         </Card>
 
         <Card className="p-6">
-          <h3 className="text-lg font-semibold mb-4">Subject-wise Analysis</h3>
+          <h3 className="text-lg font-semibold mb-4 text-slate-900 dark:text-slate-100">Subject-wise Analysis</h3>
           <div className="h-[300px]">
             <ResponsiveContainer>
               <BarChart data={batchData?.subjectWiseAnalysis}>
@@ -97,7 +101,7 @@ export function BatchAnalytics() {
       </div>
 
       <Card className="p-6">
-        <h3 className="text-lg font-semibold mb-4">Top Performers</h3>
+        <h3 className="text-lg font-semibold mb-4 text-slate-900 dark:text-slate-100">Top Performers</h3>
         <div className="space-y-4">
           {batchData?.topPerformers.map((student, index) => (
             <div 
@@ -108,7 +112,7 @@ export function BatchAnalytics() {
                 <div className="w-8 h-8 rounded-full bg-indigo-600 text-white flex items-center justify-center font-bold">
                   {index + 1}
                 </div>
-                <span className="font-medium">{student.name}</span>
+                <span className="font-medium text-indigo-900 dark:text-indigo-900">{student.name}</span>
               </div>
               <span className="text-indigo-600 font-semibold">CGPA: {student.cgpa}</span>
             </div>

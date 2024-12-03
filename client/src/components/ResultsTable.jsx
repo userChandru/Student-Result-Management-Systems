@@ -153,6 +153,9 @@ export function ResultsTable() {
                 className={`
                   border-b border-slate-100 dark:border-slate-700/50
                   ${index % 2 === 0 ? 'bg-white dark:bg-slate-700' : 'bg-slate-50/50 dark:bg-slate-800/50'}
+                  ${subject.total >= 80 ? 'border-l-emerald-500' : 
+                    subject.total >= 60 ? 'border-l-blue-500' : 
+                    'border-l-amber-500'}
                 `}
               >
                 <td className="whitespace-nowrap px-4 py-3 text-sm text-slate-900 dark:text-slate-100">

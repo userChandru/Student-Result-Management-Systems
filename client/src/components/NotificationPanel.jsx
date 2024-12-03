@@ -30,17 +30,29 @@ export function NotificationPanel() {
       {notifications?.map(notification => (
         <div 
           key={notification.id}
-          className={`p-4 rounded-lg border ${
+          className={`p-4 rounded-lg border transition-all duration-200 ${
             notification.read 
-              ? 'bg-white border-slate-200' 
-              : 'bg-blue-50 border-blue-200'
+              ? 'bg-gradient-to-br from-white to-slate-50/30 border-slate-200' 
+              : 'bg-gradient-to-br from-blue-50 to-indigo-50/30 border-blue-200 shadow-sm shadow-blue-100'
           }`}
         >
           <div className="flex items-center gap-3">
-            <Bell className={`w-5 h-5 ${notification.read ? 'text-slate-400' : 'text-blue-500'}`} />
+            <Bell className={`w-5 h-5 ${
+              notification.read 
+                ? 'text-slate-400' 
+                : 'text-blue-500 animate-pulse'
+            }`} />
             <div>
-              <h4 className="font-medium text-slate-900">{notification.title}</h4>
-              <p className="text-sm text-slate-600">{notification.message}</p>
+              <h4 className={`font-medium ${
+                notification.read 
+                  ? 'text-slate-700' 
+                  : 'text-blue-700'
+              }`}>{notification.title}</h4>
+              <p className={`text-sm ${
+                notification.read 
+                  ? 'text-slate-600' 
+                  : 'text-blue-600'
+              }`}>{notification.message}</p>
               <p className="text-xs text-slate-400 mt-1">{notification.date}</p>
             </div>
           </div>

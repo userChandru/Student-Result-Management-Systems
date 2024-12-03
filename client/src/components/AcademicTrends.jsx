@@ -4,8 +4,6 @@ import { useState } from 'react';
 import { Button } from './ui/Button';
 
 export function AcademicTrends({ data }) {
-  const [viewType, setViewType] = useState('cgpa');
-
   const trendData = [
     { semester: 'Sem 1', cgpa: 8.5, sgpa: 8.5 },
     { semester: 'Sem 2', cgpa: 8.7, sgpa: 8.9 },
@@ -32,26 +30,6 @@ export function AcademicTrends({ data }) {
 
   return (
     <Card className="p-6 border border-slate-200 dark:border-slate-400">
-      <div className="flex items-center justify-between mb-6">
-        <h3 className="text-lg font-semibold text-slate-900 dark:text-slate-100">Academic Progress</h3>
-        <div className="flex gap-2">
-          <Button
-            variant={viewType === 'cgpa' ? 'default' : 'outline'}
-            size="sm"
-            onClick={() => setViewType('cgpa')}
-          >
-            CGPA
-          </Button>
-          <Button
-            variant={viewType === 'sgpa' ? 'default' : 'outline'}
-            size="sm"
-            onClick={() => setViewType('sgpa')}
-          >
-            SGPA
-          </Button>
-        </div>
-      </div>
-
       <div className="h-[400px]">
         <ResponsiveContainer width="100%" height="100%">
           <LineChart data={trendData} margin={{ top: 20, right: 30, left: 20, bottom: 20 }}>
@@ -68,54 +46,52 @@ export function AcademicTrends({ data }) {
               ticks={[0, 2, 4, 6, 8, 10]}
             />
             <Tooltip content={<CustomTooltip />} />
-            <Legend />
-            {viewType === 'cgpa' ? (
-              <Line
-                type="monotone"
-                dataKey="cgpa"
-                name="CGPA"
-                stroke="url(#gradientCGPA)"
-                strokeWidth={2}
-                dot={{
-                  fill: '#fff',
-                  stroke: '#4F46E5',
-                  strokeWidth: 2,
-                  r: 4
-                }}
-                activeDot={{
-                  r: 6,
-                  fill: '#4F46E5'
-                }}
-              />
-            ) : (
-              <Line
-                type="monotone"
-                dataKey="sgpa"
-                name="SGPA"
-                stroke="url(#gradientSGPA)"
-                strokeWidth={2}
-                dot={{
-                  fill: '#fff',
-                  stroke: '#2563EB',
-                  strokeWidth: 2,
-                  r: 4
-                }}
-                activeDot={{
-                  r: 6,
-                  fill: '#2563EB'
-                }}
-              />
-            )}
-            <defs>
-              <linearGradient id="gradientCGPA" x1="0" y1="0" x2="1" y2="0">
-                <stop offset="0%" stopColor="#4F46E5" />
-                <stop offset="100%" stopColor="#6366F1" />
-              </linearGradient>
-              <linearGradient id="gradientSGPA" x1="0" y1="0" x2="1" y2="0">
-                <stop offset="0%" stopColor="#2563EB" />
-                <stop offset="100%" stopColor="#3B82F6" />
-              </linearGradient>
-            </defs>
+            <Legend 
+              wrapperStyle={{ color: 'inherit' }}
+              formatter={(value) => (
+                <span className="text-slate-900 dark:text-slate-100">{value}</span>
+              )}
+            />
+            <Line
+              type="monotone"
+              dataKey="cgpa"
+              name="CGPA"
+              stroke="#4F46E5"
+              className="dark:stroke-emerald-500"
+              strokeWidth={2}
+              dot={{
+                fill: '#fff',
+                stroke: '#4F46E5',
+                strokeWidth: 2,
+                r: 4,
+                className: 'dark:stroke-emerald-500'
+              }}
+              activeDot={{
+                r: 6,
+                fill: '#4F46E5',
+                className: 'dark:fill-emerald-500'
+              }}
+            />
+            <Line
+              type="monotone"
+              dataKey="sgpa"
+              name="SGPA"
+              stroke="#60A5FA"
+              className="dark:stroke-white"
+              strokeWidth={2}
+              dot={{
+                fill: '#fff',
+                stroke: '#60A5FA',
+                strokeWidth: 2,
+                r: 4,
+                className: 'dark:stroke-white'
+              }}
+              activeDot={{
+                r: 6,
+                fill: '#60A5FA',
+                className: 'dark:fill-white'
+              }}
+            />
           </LineChart>
         </ResponsiveContainer>
       </div>

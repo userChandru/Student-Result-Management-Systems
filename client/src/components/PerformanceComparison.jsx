@@ -12,7 +12,7 @@ export function PerformanceComparison({ data }) {
 
   return (
     <Card className="p-6 border border-slate-200 dark:border-slate-400">
-      <h3 className="text-lg font-semibold mb-4 text-slate-900 dark:text-slate-100">Performance Analysis</h3>
+      {/* <h3 className="text-lg font-semibold mb-4 text-slate-900 dark:text-slate-100">Performance Analysis</h3> */}
       <div className="h-[400px]">
         <ResponsiveContainer width="100%" height="100%">
           <RadarChart data={subjectData}>
@@ -39,15 +39,15 @@ export function PerformanceComparison({ data }) {
       </div>
 
       <div className="mt-6 grid grid-cols-2 gap-4">
-        <div className="p-4 bg-indigo-50 rounded-lg">
-          <p className="text-sm text-indigo-600 font-medium">Strongest Subject</p>
-          <p className="text-lg font-bold text-indigo-700">Computer Science</p>
+        <div className="p-4 bg-gradient-to-br from-indigo-50 to-blue-50 rounded-lg">
+          <p className="text-sm text-indigo-700 font-medium">Strongest Subject</p>
+          <p className="text-lg font-bold text-indigo-900">Computer Science</p>
           <p className="text-sm text-indigo-600">92%</p>
         </div>
-        <div className="p-4 bg-blue-50 rounded-lg">
-          <p className="text-sm text-blue-600 font-medium">Area for Improvement</p>
-          <p className="text-lg font-bold text-blue-700">Physics</p>
-          <p className="text-sm text-blue-600">78%</p>
+        <div className="p-4 bg-gradient-to-br from-emerald-50 to-teal-50 rounded-lg">
+          <p className="text-sm text-emerald-700 font-medium">Area for Improvement</p>
+          <p className="text-lg font-bold text-emerald-900">Physics</p>
+          <p className="text-sm text-emerald-600">78%</p>
         </div>
       </div>
     </Card>

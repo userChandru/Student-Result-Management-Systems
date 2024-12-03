@@ -80,11 +80,12 @@ export function NotificationSystem() {
         <Card className="absolute right-0 mt-2 w-80 max-h-[400px] overflow-y-auto z-50 shadow-lg">
           <div className="p-4 border-b border-slate-200">
             <div className="flex justify-between items-center">
-              <h3 className="font-semibold">Notifications</h3>
+              <h3 className="font-semibold text-slate-900 dark:text-slate-100">Notifications</h3>
               <Button
                 variant="ghost"
                 size="sm"
                 onClick={() => setShowNotifications(false)}
+                className="bg-red-600 hover:bg-red-400"
               >
                 <X className="h-4 w-4" />
               </Button>
@@ -95,16 +96,16 @@ export function NotificationSystem() {
             {notifications?.map((notification) => (
               <div
                 key={notification.id}
-                className={`p-3 rounded-lg dark:bg-slate-700 ${
+                className={`p-3 rounded-lg  dark:bg-slate-700 ${
                   notification.read ? 'bg-white' : 'bg-blue-50'
                 }`}
               >
                 <div className="flex items-start gap-3">
-                  <span className="text-xl">
+                  <span className="text-xl text">
                     {getNotificationIcon(notification.type)}
                   </span>
                   <div className="flex-1">
-                    <h4 className="font-medium text-sm dark:text-slate-100">
+                    <h4 className="font-medium text-sm text-slate-900 dark:text-slate-100">
                       {notification.title}  
                     </h4>
                     <p className="text-sm text-slate-600 dark:text-slate-400">
@@ -118,7 +119,7 @@ export function NotificationSystem() {
                     <Button
                       variant="ghost"
                       size="sm"
-                      className="shrink-0"
+                      className="shrink-0 bg-green-600 hover:bg-green-400"
                       onClick={() => markAsReadMutation.mutate(notification.id)}
                     >
                       <Check className="h-4 w-4" />

@@ -42,28 +42,30 @@ export function RevaluationTable() {
             { value: 'approved', label: 'Approved' },
             { value: 'rejected', label: 'Rejected' }
           ]}
+          className="bg-white/80 border-indigo-100 text-slate-700 focus:border-indigo-300"
           label="Filter by Status"
+          labelClassName="text-slate-900 dark:text-slate-100"
         />
       </div>
 
       <Table>
         <thead>
           <tr>
-            <th>Student</th>
-            <th>Subject</th>
-            <th>Current Grade</th>
-            <th>Reason</th>
-            <th>Status</th>
-            <th>Actions</th>
+            <th className="text-slate-900 dark:text-slate-100">Student</th>
+            <th className="text-slate-900 dark:text-slate-100">Subject</th>
+            <th className="text-slate-900 dark:text-slate-100">Current Grade</th>
+            <th className="text-slate-900 dark:text-slate-100">Reason</th>
+            <th className="text-slate-900 dark:text-slate-100">Status</th>
+            <th className="text-slate-900 dark:text-slate-100">Actions</th>
           </tr>
         </thead>
         <tbody>
           {requests?.map((request) => (
             <tr key={request.id}>
-              <td>{request.studentName}</td>
-              <td>{request.subjectName}</td>
-              <td>{request.currentGrade}</td>
-              <td>{request.reason}</td>
+              <td className="text-slate-100 dark:text-indigo-900">{request.studentName}</td>
+              <td className="text-slate-100 dark:text-indigo-900">{request.subjectName}</td>
+              <td className="text-slate-100 dark:text-indigo-900">{request.currentGrade}</td>
+              <td className="text-slate-100 dark:text-indigo-900">{request.reason}</td>
               <td>
                 <span className={`capitalize ${
                   request.status === 'pending' ? 'text-yellow-500' :
