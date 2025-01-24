@@ -1,7 +1,6 @@
 import { Card } from './ui/Card';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-import { useState } from 'react';
-import { Button } from './ui/Button';
+
 
 export function AcademicTrends({ data }) {
   const trendData = [

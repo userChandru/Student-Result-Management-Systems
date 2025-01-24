@@ -37,8 +37,8 @@ export function TopPerformers({ data }) {
               <span className="text-sm font-medium">{index + 1}</span>
             </div>
             <div>
-              <h4 className="font-medium text-slate-900">{student.name}</h4>
-              <p className="text-sm text-slate-600">{student.rollNo}</p>
+              <h4 className="font-medium text-slate-900 dark:text-slate-100">{student.name}</h4>
+              <p className="text-sm text-slate-600 dark:text-slate-400">{student.rollNo}</p>
             </div>
           </div>
           <div className="text-right">
@@ -55,7 +55,7 @@ export function TopPerformers({ data }) {
                 ? 'text-indigo-700 dark:text-indigo-400'
                 : 'text-slate-700 dark:text-slate-400'
             }`}>{student.cgpa.toFixed(2)}</p>
-            <p className="text-sm text-slate-600">CGPA</p>
+            <p className="text-sm text-slate-600 dark:text-slate-400">CGPA</p>
           </div>
         </Card>
       ))}

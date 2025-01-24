@@ -36,11 +36,11 @@ export function StaffDashboard() {
           }
         },
         topPerformers: [
-          { id: 1, name: 'John Doe', rollNo: 'CS2024001', cgpa: 9.8 },
-          { id: 2, name: 'Jane Smith', rollNo: 'CS2024015', cgpa: 9.6 },
-          { id: 3, name: 'Alex Johnson', rollNo: 'CS2024032', cgpa: 9.5 },
-          { id: 4, name: 'Sarah Williams', rollNo: 'CS2024045', cgpa: 9.4 },
-          { id: 5, name: 'Michael Brown', rollNo: 'CS2024058', cgpa: 9.3 }
+          { id: 1, name: 'Siddharth', rollNo: 'CS2024001', cgpa: 9.8 },
+          { id: 2, name: 'Gokul', rollNo: 'CS2024015', cgpa: 9.6 },
+          { id: 3, name: 'Dhinesh', rollNo: 'CS2024032', cgpa: 9.5 },
+          { id: 4, name: 'ShivaPaadha Segaran', rollNo: 'CS2024045', cgpa: 9.4 },
+          { id: 5, name: 'Priya ', rollNo: 'CS2024058', cgpa: 9.3 }
         ]
       };
     }

@@ -22,23 +22,47 @@ export function ResultsTable() {
           {
             code: 'CS101',
             subject: 'Programming Fundamentals',
-            examMarks: 75,
-            internalMarks: 22,
-            total: 97,
-            deptHighest: 98,
+            examMarks: 65,
+            internalMarks: 23,
+            total: 88,
+            credits: 3,
+            deptHighest: 92,
             deptLowest: 45,
             deptRank: 3
           },
           {
             code: 'MA101',
             subject: 'Engineering Mathematics',
-            examMarks: 70,
-            internalMarks: 24,
-            total: 94,
-            deptHighest: 96,
-            deptLowest: 42,
-            deptRank: 4
+            examMarks: 52,
+            internalMarks: 20,
+            total: 72,
+            credits: 3,
+            deptHighest: 90,
+            deptLowest: 40,
+            deptRank: 8
           },
+          {
+            code: 'EH101',
+            subject: 'Engineering Physics',
+            examMarks: 48,
+            internalMarks: 18,
+            total: 66,
+            credits: 2,
+            deptHighest: 88,
+            deptLowest: 35,
+            deptRank: 12
+          },
+          {
+            code: 'EC101',
+            subject: 'Engineering Chemistry',
+            examMarks: 58,
+            internalMarks: 21,
+            total: 79,
+            credits: 2,
+            deptHighest: 91,
+            deptLowest: 42,
+            deptRank: 5
+          }
           // Add more subjects as needed
         ]
       };
@@ -127,6 +151,9 @@ export function ResultsTable() {
                 Subject
               </th>
               <th className="whitespace-nowrap px-4 py-3 text-left text-sm font-medium text-slate-600 dark:bg-slate-800 dark:text-slate-100">
+                Credits
+              </th>
+              <th className="whitespace-nowrap px-4 py-3 text-left text-sm font-medium text-slate-600 dark:bg-slate-800 dark:text-slate-100">
                 Exam Marks
               </th>
               <th className="whitespace-nowrap px-4 py-3 text-left text-sm font-medium text-slate-600 dark:bg-slate-800 dark:text-slate-100">
@@ -163,6 +190,9 @@ export function ResultsTable() {
                 </td>
                 <td className="whitespace-nowrap px-4 py-3 text-sm text-slate-900 dark:text-slate-100">
                   {subject.subject}
+                </td>
+                <td className="whitespace-nowrap px-4 py-3 text-sm text-slate-900 dark:text-slate-100">
+                  {subject.credits}
                 </td>
                 <td className="whitespace-nowrap px-4 py-3 text-sm text-slate-900 dark:text-slate-100">
                   {subject.examMarks}

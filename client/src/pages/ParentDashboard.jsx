@@ -6,6 +6,10 @@ import { SemesterComparison } from '../components/charts/SemesterComparison';
 import { NotificationPanel } from '../components/NotificationPanel';
 import { NotificationSystem } from '../components/NotificationSystem';
 import { ThemeToggle } from '../components/ThemeToggle';
+import { ResultsTable } from '../components/ResultsTable';
+import { AcademicTrends } from '../components/AcademicTrends';
+import { PerformanceComparison } from '../components/PerformanceComparison';
+import { RevaluationSystem } from '../components/RevaluationSystem';
 
 export function ParentDashboard() {
   const [selectedChild, setSelectedChild] = useState(null);
@@ -40,16 +44,18 @@ export function ParentDashboard() {
         <div className="container mx-auto px-4 py-3">
           <div className="flex items-center justify-between">
             <h1 className="text-2xl font-bold text-slate-900 dark:text-white">
-              John Doe's Dashboard
+              Parent Dashboard
             </h1>
             <div className="flex items-center gap-4">
+              {/* <NotificationSystem /> */}
               <ThemeToggle />
             </div>
           </div>
         </div>
       </header>
       
-      <main className="container mx-auto px-4 py-4 space-y-4 flex-1">
+      <main className="container mx-auto px-4 py-4 space-y-6">
+        {/* Academic Overview Section */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <Card className="p-4 col-span-2">
             <h3 className="font-semibold mb-4 text-slate-900 dark:text-slate-100">Academic Overview</h3>
@@ -62,10 +68,30 @@ export function ParentDashboard() {
           </Card>
         </div>
 
-        <Card className="p-4">
-          <h3 className="font-semibold mb-4 text-slate-900 dark:text-slate-100">Semester Performance</h3>
-          <SemesterComparison data={studentData?.semesterData} />
+        {/* Results Section */}
+        <Card className="p-6">
+          <h3 className="text-xl font-semibold mb-6 text-indigo-700 dark:text-slate-100">
+            Semester Results
+          </h3>
+          <ResultsTable />
         </Card>
+
+        {/* Performance Analysis Section */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <Card className="p-6">
+            <h3 className="text-xl font-semibold mb-6 text-indigo-700 dark:text-slate-100">
+              Academic Trends
+            </h3>
+            <AcademicTrends />
+          </Card>
+          
+          <Card className="p-6">
+            <h3 className="text-xl font-semibold mb-6 text-blue-700 dark:text-slate-100">
+              Performance Comparison
+            </h3>
+            <PerformanceComparison />
+          </Card>
+        </div>
       </main>
     </div>
   );

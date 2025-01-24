@@ -101,7 +101,7 @@ export function Login() {
           </div>
         </div>
 
-        <Card className="p-10 shadow-2xl bg-white backdrop-blur-sm">
+        <Card className="p-10 shadow-2xl bg-white dark:bg-white backdrop-blur-sm">
           <div className="text-center mb-10">
             <h2 className="text-3xl font-bold bg-gradient-to-r from-indigo-700 to-blue-600 bg-clip-text text-transparent">
               Welcome Back

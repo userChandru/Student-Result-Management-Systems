@@ -92,7 +92,7 @@ export function NotificationSystem() {
             </div>
           </div>
 
-          <div className="p-2 space-y-2">
+          <div className="p-2 space-y-2 z-50">
             {notifications?.map((notification) => (
               <div
                 key={notification.id}

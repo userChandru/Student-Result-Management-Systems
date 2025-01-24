@@ -93,17 +93,17 @@ export function BatchAnalytics() {
                 <Bar dataKey="average" fill="#4F46E5" name="Average Score" />
                 <Bar dataKey="pass" fill="#4ade80" name="Pass Rate" />
                 <Legend />
-                <Tooltip />
+                <Tooltip cursor={false}/>
               </BarChart>
             </ResponsiveContainer>
           </div>
         </Card>
       </div>
 
-      <Card className="p-6">
+      {/* <Card className="p-6">
         <h3 className="text-lg font-semibold mb-4 text-slate-900 dark:text-slate-100">Top Performers</h3>
         <div className="space-y-4">
-          {batchData?.topPerformers.map((student, index) => (
+          {batchData?.topPerformers.map((student, index) => ( 
             <div 
               key={index}
               className="flex items-center justify-between p-4 bg-gradient-to-r from-indigo-50 to-blue-50 rounded-lg"
@@ -118,7 +118,7 @@ export function BatchAnalytics() {
             </div>
           ))}
         </div>
-      </Card>
+      </Card> */}
     </div>
   );
 } 

@@ -20,7 +20,7 @@ export function AcademicProgress({ data }) {
               <span className="text-slate-600">{data.completedCredits} completed</span>
               <span className="text-slate-600">Total: {data.totalCredits}</span>
             </div>
-          </div>
+          </div>  
         </div>
 
         <div className="space-y-2">
